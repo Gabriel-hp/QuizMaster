@@ -1,22 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<form method="POST" action="{{ route('process.quiz') }}">
+@extends('master')
+
+@section('content')
+
+<form method="POST" action="{{ route('process.quiz') }}" class="quiz-form">
     @csrf
-    @foreach ($questions as $question)
-        <p>{{ $question->question }}</p>
-        <input type="radio" name="{{ $question->id }}" value="A"> {{ $question->option_a }}<br>
-        <input type="radio" name="{{ $question->id }}" value="B"> {{ $question->option_b }}<br>
-        <input type="radio" name="{{ $question->id }}" value="C"> {{ $question->option_c }}<br>
-        <input type="radio" name="{{ $question->id }}" value="D"> {{ $question->option_d }}<br>
+    @foreach ($questions as $index => $question)
+        <div class="question-container mt-4">
+            <p class="question-number">Questão {{ $index + 1 }}</p>
+            <p class="question-text">{{ $question->question }}</p>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="{{ $question->id }}" value="A" id="optionA{{ $question->id }}">
+                <label class="form-check-label" for="optionA{{ $question->id }}">
+                    {{ $question->option_a }}
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="{{ $question->id }}" value="B" id="optionB{{ $question->id }}">
+                <label class="form-check-label" for="optionB{{ $question->id }}">
+                    {{ $question->option_b }}
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="{{ $question->id }}" value="C" id="optionC{{ $question->id }}">
+                <label class="form-check-label" for="optionC{{ $question->id }}">
+                    {{ $question->option_c }}
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="{{ $question->id }}" value="D" id="optionD{{ $question->id }}">
+                <label class="form-check-label" for="optionD{{ $question->id }}">
+                    {{ $question->option_d }}
+                </label>
+            </div>
+        </div>
     @endforeach
-    <input type="submit" value="Enviar">
+    <button type="submit" class="btn btn-primary submit-btn">finalizar</button>
 </form>
 
-</body>
-</html>
+
+
+@endsection

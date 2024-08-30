@@ -1,0 +1,62 @@
+body{
+    background-color: #e6e4e4;;
+}
+.quiz-form {
+    max-width: 600px;
+    margin: 0 auto; /* Centraliza o formulário na página */
+    padding: 20px;
+    background-color: #f8f9fa; /* Cor de fundo clara */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.question-container {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #e6e4e4; /* Fundo branco para cada pergunta */
+    border-radius: 8px;
+    border: 1px solid #c2c2c2;
+}
+
+.question-number {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #012a55; /* Cor primária para o número da questão */
+    text-align: left; /* Centraliza o número da questão */
+}
+
+.question-text {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    text-align: left; /* Centraliza o texto da questão */
+}
+
+.form-check {
+    margin-bottom: 10px;
+}
+
+.form-check-label {
+    margin-left: 10px;
+    font-size: 15px;
+}
+
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #01172e;
+}

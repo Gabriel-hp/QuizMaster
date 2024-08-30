@@ -47,10 +47,28 @@ class QuestionController extends Controller
     }
     
 
-    public function showResult()
-    {
-        return view('result', ['score' => session('score')]);
+    public function showResult(Request $request)
+{
+    // Obtenha o ID do usuário logado
+    $userId = auth()->user()->id;
+
+    // Obtenha as questões e as respostas corretas do banco de dados
+    $questions = Question::all();
+
+    // Obtenha as respostas do usuário a partir do banco de dados
+    $userAnswers = UserAnswer::where('user_id', $userId)->pluck('selected_option', 'question_id')->toArray();
+
+    // Calcule a pontuação
+    $score = 0;
+    foreach ($questions as $question) {
+        if (isset($userAnswers[$question->id]) && $userAnswers[$question->id] == $question->correct_option) {
+            $score++;
+        }
     }
+
+    // Retorne a view com as questões, respostas do usuário e a pontuação
+    return view('result', compact('questions', 'userAnswers', 'score'));
+}
 
     public function store(Request $request)
     {
