@@ -1,7 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\QuestionController;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [UserController::class, 'register']);
+Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [UserController::class, 'login']);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/quiz', [QuestionController::class, 'showQuiz'])->name('quiz');
+    Route::post('/quiz', [QuestionController::class, 'processQuiz'])->name('process.quiz');
+    Route::get('/result', [QuestionController::class, 'showResult'])->name('result');
 });
