@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="/css/style.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
 integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  <title>QuizMaster</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<title>QuizMaster</title>
 </head>
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <div class="container-fluid">
@@ -28,3 +29,9 @@ integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6
       
     </div>
 </body>
+
+<footer class="footer">
+    <div class="container ">
+        <p class="text-center mb-0">© 2024 Desenvolvido por <i>Gabriel Dias</i></p>
+    </div>
+</footer>

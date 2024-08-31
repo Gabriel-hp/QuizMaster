@@ -60,3 +60,24 @@ body{
 .submit-btn:hover {
     background-color: #01172e;
 }
+body {
+    margin: 0;
+    padding-bottom: 60px; /* Espaço para o footer */
+    box-sizing: border-box;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa; /* Cor do fundo */
+    padding: 10px 0;
+    text-align: center;
+    border-top: 1px solid #e7e7e7; /* Linha superior */
+}
+
+.footer p {
+    margin: 0;
+    color: #6c757d; /* Cor do texto */
+    font-size: 14px;
+}
