@@ -16,17 +16,24 @@ class QuestionController extends Controller
     }
 
     public function showQuiz(Request $request)
-    {
-        $category = $request->input('category');
-        $quantity = $request->input('quantity', 10); // Default para 10 perguntas se não especificado
-    
-        $questions = Question::where('subject', $category)
-                             ->inRandomOrder()
-                             ->take($quantity)
-                             ->get();
-    
-        return view('quiz', compact('questions'));
-    }
+        {
+            $categories = $request->input('categories', []); // Recebe um array de categorias
+            $quantity = $request->input('quantity', 10); // Default para 10 perguntas se não especificado
+
+            // Se não houver categorias selecionadas, retornar uma resposta de erro ou redirecionar
+            if (empty($categories)) {
+                return redirect()->route('quiz.select')->withErrors('Selecione pelo menos uma categoria.');
+            }
+
+            $questions = Question::whereIn('subject', $categories) // Filtra por múltiplas categorias
+                                ->inRandomOrder()
+                                ->take($quantity)
+                                ->get();
+
+            return view('quiz', compact('questions'));
+        }
+
+
     
     
 

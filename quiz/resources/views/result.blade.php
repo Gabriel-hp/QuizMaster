@@ -31,25 +31,28 @@
                 </div>
             </div>
 
-            <div class="card mt-5">
-                <div class="card-header bg-secondary text-white">
-                    <h3 class="mb-0">Revisão das Questões</h3>
+            @if(!empty($questions))
+                <div class="card mt-5">
+                    <div class="card-header bg-secondary text-white">
+                        <h3 class="mb-0">Revisão das Questões</h3>
+                    </div>
+                    <div class="card-body">
+                        @foreach($questions as $index => $question)
+                            <div class="mb-3">
+                                <p><strong>Questão {{ $index + 1 }}:</strong> {{ $question->question }}</p>
+                                <p><strong>Sua Resposta:</strong> 
+                                    <span class="@if(isset($userAnswers[$question->id]) && $userAnswers[$question->id] == $question->correct_option) text-success @else text-danger @endif">
+                                        {{ $userAnswers[$question->id] ?? 'Não respondida' }}
+                                    </span>
+                                </p>
+
+                                <p><strong>Resposta Correta:</strong> <span class="text-success">{{ $question->correct_option }}</span></p>
+                                <hr>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-                <div class="card-body">
-                    @foreach($questions as $index => $question)
-                        <div class="question-review mb-4">
-                            <p><strong>Questão {{ $index + 1 }}:</strong> {{ $question->question }}</p>
-                            <p><strong>Sua Resposta:</strong> 
-                                <span class="@if($userAnswers[$question->id] == $question->correct_option) text-success @else text-danger @endif">
-                                    {{ $userAnswers[$question->id] ?? 'Não respondida' }}
-                                </span>
-                            </p>
-                            <p><strong>Resposta Correta:</strong> <span class="text-success">{{ $question->correct_option }}</span></p>
-                            <hr>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>
