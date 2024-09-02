@@ -14,6 +14,7 @@ Route::get('/', function () {
 
 
 Route::get('/create', [QuestionController::class, 'store'])->name('create');
+Route::get('/quiz/select', [QuestionController::class, 'selectQuizOptions'])->name('quiz.select');
 Route::get('/quiz', [QuestionController::class, 'showQuiz'])->name('quiz');
 Route::post('/quiz', [QuestionController::class, 'processQuiz'])->name('process.quiz');
 Route::get('/result', [QuestionController::class, 'showResult'])->name('result');

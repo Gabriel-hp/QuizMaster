@@ -32,6 +32,12 @@
                     {{ $question->option_d }}
                 </label>
             </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="{{ $question->id }}" value="E" id="optionE{{ $question->id }}">
+                <label class="form-check-label" for="optionE{{ $question->id }}">
+                    {{ $question->option_d }}
+                </label>
+            </div>
         </div>
     @endforeach
     <button type="submit" class="btn btn-primary submit-btn">finalizar</button>

@@ -9,11 +9,26 @@ use App\Models\score_tot;
 
 class QuestionController extends Controller
 {
-    public function showQuiz()
+    public function selectQuizOptions()
     {
-        $questions = Question::inRandomOrder()->take(10)->get(); // Seleciona 10 questões aleatórias
+        $categories = ['Português', 'Informática', 'Raciocínio Lógico'];
+        return view('quiz_options', compact('categories'));
+    }
+
+    public function showQuiz(Request $request)
+    {
+        $category = $request->input('category');
+        $quantity = $request->input('quantity', 10); // Default para 10 perguntas se não especificado
+    
+        $questions = Question::where('subject', $category)
+                             ->inRandomOrder()
+                             ->take($quantity)
+                             ->get();
+    
         return view('quiz', compact('questions'));
     }
+    
+    
 
     public function processQuiz(Request $request)
     {
