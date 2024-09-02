@@ -78,7 +78,9 @@ body {
 
 .footer p {
     margin: 0;
+    text-align: center;
     color: #6c757d; /* Cor do texto */
     font-size: 14px;
-    text-align: center;
+    
+
 }
