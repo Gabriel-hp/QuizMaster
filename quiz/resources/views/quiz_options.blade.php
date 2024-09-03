@@ -23,6 +23,13 @@
                                         </label>
                                     </div>
                                 @endforeach
+                                <div class="form-group">
+                                <label for="tema">Selecione a banca:</label>
+                                <select name="tema" id="tema" class="form-control">
+                                    @foreach ($temas as $tema)
+                                        <option value="{{ $tema }}">{{ $tema }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 

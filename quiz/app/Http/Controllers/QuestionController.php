@@ -12,28 +12,34 @@ class QuestionController extends Controller
     public function selectQuizOptions()
     {
         $categories = ['Português', 'Informática', 'Raciocínio Lógico'];
-        return view('quiz_options', compact('categories'));
+        $temas = ['FGV', 'Redes', 'Fundação Cesgranrio'];
+        return view('quiz_options', compact('categories', 'temas'));
     }
-
+    
     public function showQuiz(Request $request)
-        {
-            $categories = $request->input('categories', []); // Recebe um array de categorias
-            $quantity = $request->input('quantity', 10); // Default para 10 perguntas se não especificado
-
-            // Se não houver categorias selecionadas, retornar uma resposta de erro ou redirecionar
-            if (empty($categories)) {
-                return redirect()->route('quiz.select')->withErrors('Selecione pelo menos uma categoria.');
-            }
-
-            $questions = Question::whereIn('subject', $categories) // Filtra por múltiplas categorias
-                                ->inRandomOrder()
-                                ->take($quantity)
-                                ->get();
-
-            return view('quiz', compact('questions'));
+    {
+        $categories = $request->input('categories', []); // Recebe um array de categorias
+        $quantity = $request->input('quantity', 10); // Default para 10 perguntas se não especificado
+        $tema = $request->input('tema'); // Recebe o tema ou a banca 
+    
+        // Se não houver categorias selecionadas, retornar uma resposta de erro ou redirecionar
+        if (empty($categories)) {
+            return redirect()->route('quiz.select')->withErrors('Selecione pelo menos uma categoria.');
         }
-
-
+    
+        // Filtra as perguntas pelo tema e categorias selecionadas
+        $questions = Question::where('tema', $tema)
+                             ->whereIn('subject', $categories)
+                             ->inRandomOrder()
+                             ->take($quantity)
+                             ->get();
+    
+        // Salva os IDs das perguntas na sessão
+        $questionIds = $questions->pluck('id')->toArray();
+        session(['quiz_questions' => $questionIds]);
+    
+        return view('quiz', compact('questions'));
+    }
     
     
 
@@ -78,28 +84,49 @@ class QuestionController extends Controller
     
 
     public function showResult(Request $request)
-{
-    // Obtenha o ID do usuário logado
-    $userId = auth()->user()->id;
-
-    // Obtenha as questões e as respostas corretas do banco de dados
-    $questions = Question::all();
-
-    // Obtenha as respostas do usuário a partir do banco de dados
-    $userAnswers = UserAnswer::where('user_id', $userId)->pluck('selected_option', 'question_id')->toArray();
-
-    // Calcule a pontuação
-    $score = 0;
-    foreach ($questions as $question) {
-        if (isset($userAnswers[$question->id]) && $userAnswers[$question->id] == $question->correct_option) {
-            $score++;
+    {
+        // Verifique se o usuário está autenticado
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Você precisa estar logado para ver o resultado.');
         }
+    
+        // Obtenha os IDs das perguntas do quiz da sessão
+        $questionIds = session('quiz_questions', []);
+    
+        // Obtenha as questões baseadas nos IDs armazenados na sessão
+        $questions = Question::whereIn('id', $questionIds)->get();
+    
+        // Obtenha o ID do usuário logado
+        $userId = auth()->user()->id;
+    
+        // Obtenha as respostas do usuário para as questões filtradas
+        $userAnswers = UserAnswer::where('user_id', $userId)
+            ->whereIn('question_id', $questionIds)
+            ->pluck('selected_option', 'question_id')
+            ->toArray();
+    
+        // Calcule a pontuação
+        $score = 0;
+        foreach ($questions as $question) {
+            // Verifique se a resposta do usuário é igual à resposta correta
+            if (isset($userAnswers[$question->id]) && $userAnswers[$question->id] == $question->correct_option) {
+                $score++;
+            }
+        }
+    
+        // Retorne a view com as questões, respostas do usuário e a pontuação
+        return view('result', [
+            'questions' => $questions,
+            'userAnswers' => $userAnswers,
+            'score' => $score,
+            'totalQuestions' => count($questions) // Passa o total de perguntas para a view
+        ]);
     }
+    
 
-    // Retorne a view com as questões, respostas do usuário e a pontuação
-    return view('result', compact('questions', 'userAnswers', 'score'));
-   
-}
+    
+
+
 
 }
 

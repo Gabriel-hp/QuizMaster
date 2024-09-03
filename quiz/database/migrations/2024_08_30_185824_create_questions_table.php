@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->enum('subject', ['Portugues', 'Raciocinio Logico', 'Informatica']);
             $table->text('question');
+            $table->text('tema');
             $table->string('option_a');
             $table->string('option_b');
             $table->string('option_c');

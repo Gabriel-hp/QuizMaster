@@ -7,21 +7,23 @@
     @foreach ($questions as $index => $question)
         <div class="question-container mt-4">
             <p class="question-number">Questão {{ $index + 1 }}</p>
+            <p class="question-text">{{ $question->tema }}</p>
             <p class="question-text">{{ $question->question }}</p>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="{{ $question->id }}" value="A" id="optionA{{ $question->id }}">
                 <label class="form-check-label" for="optionA{{ $question->id }}">
-                    {{ $question->option_a }}
+                {{ $question->option_a }}
                 </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="{{ $question->id }}" value="B" id="optionB{{ $question->id }}">
                 <label class="form-check-label" for="optionB{{ $question->id }}">
-                    {{ $question->option_b }}
+                   {{ $question->option_b }}
                 </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="{{ $question->id }}" value="C" id="optionC{{ $question->id }}">
+                
                 <label class="form-check-label" for="optionC{{ $question->id }}">
                     {{ $question->option_c }}
                 </label>
@@ -35,7 +37,7 @@
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="{{ $question->id }}" value="E" id="optionE{{ $question->id }}">
                 <label class="form-check-label" for="optionE{{ $question->id }}">
-                    {{ $question->option_d }}
+                    {{ $question->option_e }}
                 </label>
             </div>
         </div>
