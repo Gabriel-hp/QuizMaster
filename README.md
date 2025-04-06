@@ -1,4 +1,4 @@
-##🎯 QuizMaster
+🎯 QuizMaster
 
 
 QuizMaster é uma plataforma web de simulado para concursos e provas, desenvolvida com Laravel e MySQL, que permite aos usuários praticar com questões de diversas categorias como Português, Informática e Raciocínio Lógico.
